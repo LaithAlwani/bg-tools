@@ -5,17 +5,17 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Navbar = () => {
-  const isUserLoggedIn = false;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
 
-  const getNewProvider = async () => {
+  const setUpProviders = async () => {
     const response = await getProviders();
 
     setProviders(response);
   };
 
   useEffect(() => {
-    getNewProvider();
+    setUpProviders();
   }, []);
   return (
     <nav className="flex-between w-full mb-16 pt3">
@@ -24,11 +24,13 @@ const Navbar = () => {
         {/* <Image src='/next.svg' width={48} height={100} /> */}
       </Link>
       <div className="links">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <>
             <Link href="create-post">Create Post</Link>
-            <button>Sign Out</button>
-            <Link href="/profile"></Link>
+            <button onClick={signOut}>Sign Out</button>
+            <Link href="/profile">
+              <Image src={session?.user.image} alt="profile" width={48} height={48} />
+            </Link>
           </>
         ) : (
           <>

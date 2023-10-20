@@ -10,7 +10,7 @@ export const conntectToDB = async () => {
   }
   try {
     await mongoose.connect(process.env.MOGODB_URI, {
-      dbName: "",
+      dbName: "bgt",
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
