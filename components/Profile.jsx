@@ -1,9 +1,28 @@
-import React from 'react'
+import { useSession } from 'next-auth/react';
+import Image from "next/image";
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <h1>loading...</h1>;
+  }
+  return session ? (
+    <section>
+      <div className="img-wrapper">
+        <Image
+          src={session.user.image}
+          alt="profile"
+          layout="fill"
+          objectFit="contain"
+          className="rounded"
+        />
+      </div>
+      <h1>{session?.user.name}</h1>
+      <p>{session?.user.email}</p>
+    </section>
+  ) : (
+    <h1>please log in</h1>
+  );
 }
 
 export default Profile
