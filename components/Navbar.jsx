@@ -18,25 +18,25 @@ const Navbar = () => {
     setUpProviders();
   }, []);
   return (
-    <nav className="flex-between w-full mb-16 pt3">
-      <Link href="/" className="flex gap-2 flex-center">
+    <nav>
+      <Link href="/">
         <h3>BGT</h3>
         {/* <Image src='/next.svg' width={48} height={100} /> */}
       </Link>
-      <div className="links">
+      <div className="nav-links">
         {session?.user ? (
           <>
-            <Link href="create-post">Create Post</Link>
-            <button onClick={signOut}>Sign Out</button>
+            <Link href="create-post" className="btn btn-outline">Create</Link>
+            <button onClick={signOut} className="btn">Sign Out</button>
             <Link href="/profile">
-              <Image src={session?.user.image} alt="profile" width={48} height={48} />
+              <Image src={session?.user.image} alt="profile" width={48} height={48} className="avatar" />
             </Link>
           </>
         ) : (
           <>
             {providers &&
               Object.values(providers).map((provider) => (
-                <button type="button" key={provider.name} onClick={() => signIn(provider.id)}>
+                <button type="button" className="btn" key={provider.name} onClick={() => signIn(provider.id)}>
                   Sign In
                 </button>
               ))}

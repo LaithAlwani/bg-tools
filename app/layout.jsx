@@ -1,6 +1,7 @@
 import "@styles/globals.css";
 import Navbar from "@components/Navbar";
 import Provider from "@components/Provider";
+import Footer from "@components/Footer";
 
 export const metadata = {
   title: "BGT",
@@ -12,10 +13,10 @@ const RootLayout = ({ children }) => {
     <html lang="en">
       <body>
         <Provider>
-          <div className="main"></div>
           <main className="app">
             <Navbar />
-            {children}
+            <div className="content">{children}</div>
+            <Footer />
           </main>
         </Provider>
       </body>
