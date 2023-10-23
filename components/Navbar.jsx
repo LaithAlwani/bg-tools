@@ -15,10 +15,6 @@ const Navbar = () => {
     setProviders(response);
   };
 
-  const signOutUser = async()=>{
-    const data = await signOut({redirect:false, callbackUrl:'/'})
-  }
-
   useEffect(() => {
     setUpProviders();
   }, []);
@@ -32,7 +28,7 @@ const Navbar = () => {
         {session?.user ? (
           <>
             <Link href="create" className="btn btn-outline">Create</Link>
-            <button onClick={signOutUser} className="btn">Sign Out</button>
+            <button onClick={()=>signOut({callbackUrl:'/'})} className="btn">Sign Out</button>
             <Link href="/profile">
               <Image src={session?.user.image} alt="profile" width={48} height={48} className="rounded" />
             </Link>

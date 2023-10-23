@@ -30,6 +30,21 @@ button:hover {
   color: #333;
 }
 
+/*forms*/
+form{
+  max-width: 600px;
+  margin-inline: auto ;
+}
+input,
+textarea{
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  margin-bottom: 1rem;
+
+}
+
 /*nav bar*/
 nav {
   max-width: 1280px;
@@ -70,8 +85,8 @@ main {
 
 .img-wrapper{
   position: relative;
-  width: 128px;
-  height: 128px;
+  width: 96px;
+  height: 96px;
   margin-inline: auto;
 }
 

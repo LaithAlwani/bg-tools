@@ -12,8 +12,10 @@ const Profile = () => {
         <Image
           src={session.user.image}
           alt="profile"
-          layout="fill"
-          objectFit="contain"
+          priority
+          fill={true}
+          sizes='100%'
+          quality={100}
           className="rounded"
         />
       </div>
