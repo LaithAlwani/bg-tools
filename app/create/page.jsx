@@ -37,10 +37,9 @@ const Page = () => {
           userId: session.user.id,
         }),
       });
-
-      // if (response.ok) {
-      //   router.push("/");
-      // }
+      if (response.ok) {
+        router.push("/");
+      }
     } catch (err) {
       console.log(err);
     } finally {
