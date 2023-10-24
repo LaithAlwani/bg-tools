@@ -1,24 +1,25 @@
 import { conntectToDB } from "@utils/database";
 
 export const POST = async (req, res) => {
-  const { title,
+  const {
+    title,
     image,
     thumbnail,
     bggId,
     minPlayer,
     maxPlayer,
+    minPlayTime,
+    maxPlayTime,
     year,
     time,
     age,
-    desc,
-    tag,
-    bbgLink
-     } = req.json();
-  
+    description,
+    bbgLink,
+  } = req.json();
+
   try {
     await conntectToDB();
+  } catch (err) {
+    console.log(err);
   }
-  catch (err) {
-    console.log(err)
-  }
-}
+};

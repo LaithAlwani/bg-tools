@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "fast-xml-parser": "^4.3.2",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.3",
     "next": "13.5.5",

@@ -19,17 +19,29 @@ const BoardgameSchema = new Schema({
   },
   year: {
     type: String,
-    required:true
+    required: [true, "year is required"],
   },
   minPlayers: {
     type: Number,
-    required:true,
+    required: [true, "min players is required"],
   },
   maxPlayers: {
     type: Number,
-    required: true
+    required: [true, "max players is required"],
   },
-  desc: {
+  minPlayTime: {
+    type: Number,
+    required: [true, "min playing time required"],
+  },
+  maxPlayTime: {
+    type: Number,
+    required: [true, "max playing time required"],
+  },
+  minAge: {
+    type: Number,
+    required: false,
+  },
+  description: {
     type: String,
   },
   bggId: {
@@ -45,10 +57,7 @@ const BoardgameSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "File",
     },
-  ],
-  tag: {
-    type: [String],
-  },
+  ]
 });
 
 const Boardgame = models.Boardgame || model("Boardgame", BoardgameSchema);
