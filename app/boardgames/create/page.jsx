@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { XMLParser } from "fast-xml-parser";
+import Authenticate from "@components/Authenticate";
 
 const options = {
   ignoreAttributes: false,
@@ -57,7 +58,7 @@ const Page = () => {
       .catch((err) => console.log(err.message));
   };
   return (
-    <section>
+    <Authenticate>
       <form onSubmit={getBggGameInfo}>
         <input
           type="text"
@@ -93,7 +94,7 @@ const Page = () => {
           </button>
         </div>
       )}
-    </section>
+    </Authenticate>
   );
 };
 

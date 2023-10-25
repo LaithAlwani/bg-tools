@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
+import Authenticate from "@components/Authenticate";
 
 const Page = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const Page = () => {
   if (status === "loading") {
     return <h1>loading...</h1>;
   }
-  const createPrompt = async (e) => {
+  const createFile = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
@@ -46,16 +47,16 @@ const Page = () => {
       setSubmitting(false);
     }
   };
-  return session ? (
-    <Form
-      type="Create"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      hadleSubmit={createPrompt}
-    />
-  ) : (
-    <h1>please log in</h1>
+  return (
+    <Authenticate>
+      <Form
+        type="Create"
+        post={post}
+        setPost={setPost}
+        submitting={submitting}
+        hadleSubmit={createFile}
+      />
+    </Authenticate>
   );
 };
 
