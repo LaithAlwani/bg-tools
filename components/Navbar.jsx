@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Navbar = () => {
-  
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
 
@@ -27,17 +26,32 @@ const Navbar = () => {
       <div className="nav-links">
         {session?.user ? (
           <>
-            <Link href="create" className="btn btn-outline">Create</Link>
-            <button onClick={()=>signOut({callbackUrl:'/'})} className="btn">Sign Out</button>
+            <Link href="create" className="btn btn-outline">
+              Create
+            </Link>
+            <button onClick={() => signOut({ callbackUrl: "/" })} className="btn">
+              Sign Out
+            </button>
             <Link href="/profile">
-              <Image src={session?.user.image} alt="profile" width={48} height={48} className="rounded" />
+              <Image
+                src={session?.user.image}
+                alt="profile"
+                priority
+                width={48}
+                height={48}
+                className="rounded"
+              />
             </Link>
           </>
         ) : (
           <>
             {providers &&
               Object.values(providers).map((provider) => (
-                <button type="button" className="btn" key={provider.name} onClick={() => signIn(provider.id)}>
+                <button
+                  type="button"
+                  className="btn"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}>
                   Sign In
                 </button>
               ))}

@@ -2,13 +2,10 @@
 import { useState } from "react";
 import { XMLParser } from "fast-xml-parser";
 import Authenticate from "@components/Authenticate";
-
-const options = {
-  ignoreAttributes: false,
-};
+import Boardgame from "@components/Boardgame";
 
 const Page = () => {
-  const [bggLink, setBggLink] = useState("");
+  const [bggId, setBggId] = useState("");
   const [boardgames, setBoardgames] = useState([]);
 
   const saveToDB = () => {
@@ -17,19 +14,15 @@ const Page = () => {
 
   const getBggGameInfo = (e) => {
     e.preventDefault();
-    const id = bggLink.split("/")[4];
-    console.log(bggLink);
-    fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${id}`)
+    fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${bggId}`)
       .then((res) => res.text())
       .then((data) => {
-        const parser = new XMLParser(options);
+        const parser = new XMLParser({ignoreAttributes: false});
         const {
           items: { item },
         } = parser.parse(data);
         if (item) {
-          const exp = item.link.filter((link) => link["@_type"] === "boardgameexpansion");
-          console.log(exp);
-          console.log(item);
+          // const exp = item.link.filter((link) => link["@_type"] === "boardgameexpansion");
           setBoardgames((prevState) => [
             ...prevState,
             {
@@ -46,11 +39,11 @@ const Page = () => {
               maxPlayTime: item.maxplaytime["@_value"],
               minAge: item.minage["@_value"],
               description: item.description,
-              bggId: id,
-              bggLink,
+              bggId,
+              
             },
           ]);
-          setBggLink("");
+          setBggId("");
         } else {
           console.log("please try again");
         }
@@ -62,9 +55,9 @@ const Page = () => {
       <form onSubmit={getBggGameInfo}>
         <input
           type="text"
-          placeholder="bgg link"
-          value={bggLink}
-          onChange={(e) => setBggLink(e.target.value)}
+          placeholder="bgg Id"
+          value={bggId}
+          onChange={(e) => setBggId(e.target.value)}
         />
         <button type="submit" className="btn">
           Submit
@@ -72,22 +65,8 @@ const Page = () => {
       </form>
       {boardgames.length >= 1 && (
         <div>
-          {boardgames.map((bg) => (
-            <>
-              <h3>{bg.title}</h3>
-              <img src={bg.thumbnail} alt="" />
-              <p>{bg.year}</p>
-              <p>
-                {bg.minPlayTime} - {bg.maxPlayTime}
-              </p>
-              <p>
-                {bg.minPlayers} - {bg.maxPlayers}
-              </p>
-              <p>{bg.minAge}+</p>
-              <p>{bg.description}</p>
-              <p>{bg.bggId}</p>
-              <p>{bg.bggLink}</p>
-            </>
+          {boardgames.map((boardgame) => (
+            <Boardgame key={boardgame.bggId} boardgame={boardgame} />
           ))}
           <button className="btn btn-outline" onClick={saveToDB}>
             Save
