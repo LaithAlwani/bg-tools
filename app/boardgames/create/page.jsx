@@ -5,8 +5,9 @@ import Authenticate from "@components/Authenticate";
 import Boardgame from "@components/Boardgame";
 
 const Page = () => {
-  const [bggId, setBggId] = useState("");
+  const [bggLink, setBggLink] = useState("");
   const [boardgames, setBoardgames] = useState([]);
+  const [price, setPrice] = useState(0);
 
   const saveToDB = () => {
     console.log(boardgames);
@@ -14,10 +15,11 @@ const Page = () => {
 
   const getBggGameInfo = (e) => {
     e.preventDefault();
-    fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${bggId}`)
+    const id = bggLink.split("/")[4];
+    fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${id}`)
       .then((res) => res.text())
       .then((data) => {
-        const parser = new XMLParser({ignoreAttributes: false});
+        const parser = new XMLParser({ ignoreAttributes: false });
         const {
           items: { item },
         } = parser.parse(data);
@@ -39,11 +41,11 @@ const Page = () => {
               maxPlayTime: item.maxplaytime["@_value"],
               minAge: item.minage["@_value"],
               description: item.description,
-              bggId,
-              
+              bggId: id,
+              price
             },
           ]);
-          setBggId("");
+          setBggLink("");
         } else {
           console.log("please try again");
         }
@@ -53,12 +55,17 @@ const Page = () => {
   return (
     <Authenticate>
       <form onSubmit={getBggGameInfo}>
+        <label>
+          <input type="checkbox" />
+          looking for
+        </label>
         <input
           type="text"
           placeholder="bgg Id"
-          value={bggId}
-          onChange={(e) => setBggId(e.target.value)}
+          value={bggLink}
+          onChange={(e) => setBggLink(e.target.value)}
         />
+        <input type="number" placeholder="price" min={0} value={price} onChange={(e)=>setPrice(e.target.value)} />
         <button type="submit" className="btn">
           Submit
         </button>

@@ -30,24 +30,27 @@ button:hover {
   background-color: transparent;
   color: #333;
 }
-.btn-outline:hover{
+.btn-outline:hover {
   background-color: #333;
   color: white;
 }
 
 /*forms*/
-form{
+form {
   max-width: 600px;
-  margin-inline: auto ;
+  margin-inline: auto;
 }
 input,
-textarea{
+textarea {
   width: 100%;
   padding: 1rem 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid;
   margin-bottom: 1rem;
+}
 
+input[type="checkbox"] {
+  width: inherit;
 }
 
 /*nav bar*/
@@ -88,7 +91,7 @@ main {
   text-align: center;
 }
 
-.img-wrapper{
+.img-wrapper {
   position: relative;
   width: 96px;
   height: 96px;

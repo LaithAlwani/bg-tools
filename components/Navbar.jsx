@@ -52,7 +52,7 @@ const Navbar = () => {
                   className="btn"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}>
-                  Sign In
+                  Sign In {provider.name}
                 </button>
               ))}
           </>

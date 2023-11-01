@@ -9,12 +9,12 @@ const UserSchema = new Schema({
   username: {
     type: String,
     require: [true, 'Username is Required'],
-    match: [/^(?=.{3,20}$)/, "Username invalid, it should contain 8-20  letters and be unique!"]
+    match: [/^(?=.{3,25}$)/, "Username invalid, it should contain 3-25  letters and be unique!"]
   },
-  image: {
+  avatar: {
     type: String,
   }
-});
+}, {timestamps: true });
 
 const User = models.User || model("User", UserSchema);
 

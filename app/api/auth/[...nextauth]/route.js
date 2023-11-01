@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { conntectToDB } from "@utils/database";
 
 import User from "@models/user";
+import Store from "@models/store";
 
 const handler = NextAuth({
   providers: [
@@ -14,32 +15,37 @@ const handler = NextAuth({
   callbacks: {
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
     async session({ session }) {
-      const sessoinUser = await User.findOne({
+      const sessionUser = await User.findOne({
         email: session.user.email,
       });
 
-      session.user.id = sessoinUser._id.toString();
+      session.user.id = sessionUser._id.toString();
       return session;
     },
 
     async signIn({ profile }) {
+      console.log("profile",profile);
       try {
         await conntectToDB();
         const userExsits = await User.findOne({
           email: profile.email,
         });
         if (!userExsits) {
-          await User.create({
+          const newUser = await User.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
-            image: profile.image,
+            avatar: profile.picture,
           });
+          await Store.create({
+            owner: newUser._id,
+          })
+          //TODO: create a new store
         }
         return true;
       } catch (err) {

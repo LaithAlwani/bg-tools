@@ -8,8 +8,8 @@ function Boardgame({ boardgame }) {
     minPlayers,
     maxPlayers,
     minAge,
-    description,
     bggId,
+    price
   } = boardgame;
   return (
     <>
@@ -25,7 +25,7 @@ function Boardgame({ boardgame }) {
         {minPlayers} - {maxPlayers}
       </p>
       <p>{minAge}+</p>
-      <p>{description}</p>
+      
       <p>{bggId}</p>
     </>
   );

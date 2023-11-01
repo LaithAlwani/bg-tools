@@ -5,13 +5,17 @@ const BoardgameSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  store: {
+    type: Schema.Types.ObjectId,
+    ref: "Store",
+  },
   image: {
     type: String,
     required: [true, "image is required"],
   },
   thumbnail: {
     type: String,
-    required: [true, "image is required"],
+    required: [true, "thumbnail is required"],
   },
   title: {
     type: String,
@@ -41,24 +45,12 @@ const BoardgameSchema = new Schema({
     type: Number,
     required: false,
   },
-  description: {
-    type: String,
-  },
   bggId: {
     type: String,
     required: [true, "bgg id required"],
   },
-  bggLink: {
-    type: String,
-    required: [true, "bgg link required"],
-  },
-  files: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "File",
-    },
-  ]
-});
+  
+}, {timestamps: true });
 
 const Boardgame = models.Boardgame || model("Boardgame", BoardgameSchema);
 
